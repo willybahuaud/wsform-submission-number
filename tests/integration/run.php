@@ -23,6 +23,7 @@ use WSForm_Submission_Number_Lab_Test as Lab;
 
 require __DIR__ . '/class-lab-forms.php';
 require __DIR__ . '/class-lab-test.php';
+require __DIR__ . '/updater-scenarios.php';
 
 /**
  * What the run created, removed by wsfsn_test_clean_up().
@@ -361,6 +362,11 @@ function wsfsn_test_clean_up() {
 	update_option( Change_Log::OPTION, array_values( $log ), false );
 
 	wp_delete_file( WPMU_PLUGIN_DIR . '/wsform-submission-number-lab.php' );
+
+	// The simulated releases must not show as a real update in the lab admin.
+	$release = new WSForm_Submission_Number\Updater\Github_Release( 'willybahuaud', 'wsform-submission-number', WSForm_Submission_Number\Plugin::VERSION );
+	delete_site_transient( $release->get_cache_key() );
+	delete_site_transient( 'update_plugins' );
 }
 
 /**
@@ -376,6 +382,9 @@ function wsfsn_test_is_foreign_log_entry( $entry ) {
 
 wp_set_current_user( 1 );
 wp_mkdir_p( WPMU_PLUGIN_DIR );
+
+// Lab requests to the site and Mailpit go through: only GitHub and WordPress.org are simulated.
+add_filter( 'pre_http_request', array( 'WSForm_Submission_Number_Fake_Github', 'answer' ), 10, 3 );
 copy( __DIR__ . '/lab-mu-plugin.php', WPMU_PLUGIN_DIR . '/wsform-submission-number-lab.php' );
 
 $wsfsn_test_scenarios = array(
@@ -387,6 +396,14 @@ $wsfsn_test_scenarios = array(
 	'wsfsn_test_readme_example',
 	'wsfsn_test_concurrency',
 	'wsfsn_test_period_reset',
+	'wsfsn_test_updater_newer_release',
+	'wsfsn_test_updater_up_to_date',
+	'wsfsn_test_updater_tested_branch',
+	'wsfsn_test_updater_missing_manifest',
+	'wsfsn_test_updater_foreign_host',
+	'wsfsn_test_updater_invalid_releases',
+	'wsfsn_test_updater_failures',
+	'wsfsn_test_updater_no_token',
 );
 
 try {
