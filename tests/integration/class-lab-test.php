@@ -15,19 +15,34 @@
 class WSForm_Submission_Number_Lab_Test {
 
 	/**
-	 * Address of the site seen from inside the web container.
+	 * Address of the site seen from the server itself.
+	 *
+	 * Defaults suit a ddev site: the web server and Mailpit answer on 127.0.0.1
+	 * inside the container. Override them with environment variables.
+	 *
+	 * @return string
 	 */
-	const SITE_URL = 'http://127.0.0.1';
+	public static function site_url() {
+		return getenv( 'WSFSN_LAB_SITE_URL' ) ? getenv( 'WSFSN_LAB_SITE_URL' ) : 'http://127.0.0.1';
+	}
 
 	/**
-	 * Host name the site answers to.
+	 * Host name the site answers to, taken from the site address by default.
+	 *
+	 * @return string
 	 */
-	const SITE_HOST = 'wsform-lab.ddev.site';
+	public static function site_host() {
+		return getenv( 'WSFSN_LAB_SITE_HOST' ) ? getenv( 'WSFSN_LAB_SITE_HOST' ) : (string) wp_parse_url( home_url(), PHP_URL_HOST );
+	}
 
 	/**
-	 * Mailpit API, inside the web container.
+	 * Mailpit API address.
+	 *
+	 * @return string
 	 */
-	const MAILPIT_URL = 'http://127.0.0.1:8025/api/v1';
+	public static function mailpit_url() {
+		return getenv( 'WSFSN_LAB_MAILPIT_URL' ) ? getenv( 'WSFSN_LAB_MAILPIT_URL' ) : 'http://127.0.0.1:8025/api/v1';
+	}
 
 	/**
 	 * Failed assertions.
@@ -97,9 +112,9 @@ class WSForm_Submission_Number_Lab_Test {
 		$body[ 'field_' . $fields['checkbox'][0] ] = array( 'I consent' );
 
 		return array(
-			'url'     => self::SITE_URL . '/wp-json/ws-form/v1/submit/',
+			'url'     => self::site_url() . '/wp-json/ws-form/v1/submit/',
 			'headers' => array(
-				'Host'           => self::SITE_HOST,
+				'Host'           => self::site_host(),
 				'X-Lab-Scenario' => $scenario,
 			),
 			'body'    => array_merge( $body, $overrides ),
@@ -232,14 +247,14 @@ class WSForm_Submission_Number_Lab_Test {
 	 * @return string Empty when no email matches.
 	 */
 	public static function find_email_text( $needle ) {
-		$search = wp_remote_get( self::MAILPIT_URL . '/search?limit=5&query=' . rawurlencode( '"' . $needle . '"' ) );
+		$search = wp_remote_get( self::mailpit_url() . '/search?limit=5&query=' . rawurlencode( '"' . $needle . '"' ) );
 		$found  = json_decode( wp_remote_retrieve_body( $search ), true );
 
 		if ( empty( $found['messages'][0]['ID'] ) ) {
 			return '';
 		}
 
-		$message = json_decode( wp_remote_retrieve_body( wp_remote_get( self::MAILPIT_URL . '/message/' . $found['messages'][0]['ID'] ) ), true );
+		$message = json_decode( wp_remote_retrieve_body( wp_remote_get( self::mailpit_url() . '/message/' . $found['messages'][0]['ID'] ) ), true );
 
 		return isset( $message['Text'] ) ? $message['Text'] : '';
 	}

@@ -6,16 +6,8 @@ node_modules/
 .env.local
 *.local.php
 
-# Copie locale de WS Form PRO (code payant, ne jamais versionner)
-ws-form-pro/
-
-# Chemins locaux, jamais versionnes
-LOCAL.md
-
 # Archives de release
 /dist/
 
-# Outils locaux
-/.playwright-mcp/
 .phpunit.result.cache
 composer.lock

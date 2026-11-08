@@ -23,9 +23,9 @@ class FormatTest extends TestCase {
 	}
 
 	/**
-	 * The brief's example.
+	 * A typical quote number.
 	 */
-	public function test_renders_the_brief_example() {
+	public function test_renders_a_quote_number() {
 		$this->assertSame( 'DEV-2026-0042', Format::render( 'DEV-{YYYY}-{N}', 42, 4, $this->date() ) );
 	}
 

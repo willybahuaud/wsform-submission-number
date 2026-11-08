@@ -2,7 +2,7 @@
 /**
  * Integration scenarios, run inside the lab site.
  *
- * Run with: ddev wp eval-file wp-content/plugins/wsform-submission-number/tests/integration/run.php --user=admin
+ * Run with: wp eval-file wp-content/plugins/wsform-submission-number/tests/integration/run.php --user=admin
  *
  * Every form, sequence and submission created here is removed at the end.
  *
@@ -229,10 +229,10 @@ function wsfsn_test_admin_edit() {
 	);
 
 	$response = wp_remote_post(
-		Lab::SITE_URL . '/wp-json/ws-form/v1/submit/' . $sent['submit_id'] . '/put/',
+		Lab::site_url() . '/wp-json/ws-form/v1/submit/' . $sent['submit_id'] . '/put/',
 		array(
 			'headers' => array(
-				'Host'           => Lab::SITE_HOST,
+				'Host'           => Lab::site_host(),
 				'X-Lab-Scenario' => 'edit',
 				'Authorization'  => 'Basic ' . base64_encode( $user->user_login . ':' . $password[0] ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- HTTP Basic auth.
 			),

@@ -189,7 +189,7 @@ Les tests d'intégration ont besoin d'un WordPress avec WS Form. Ils tournent su
 wp eval-file wp-content/plugins/wsform-submission-number/tests/integration/run.php --user=admin
 ```
 
-Ils couvrent aussi l'updater, avec des réponses GitHub simulées (nouvelle version, 404, limite de l'API, délai dépassé, cache). Ils créent leurs formulaires, envoient de vraies requêtes HTTP au site (WS Form termine ses réponses REST par un `exit`), cherchent l'e-mail dans Mailpit, puis suppriment tout ce qu'ils ont créé. Pendant le passage, ils copient un petit fichier dans `mu-plugins` qui ne réagit qu'à leur en-tête `X-Lab-Scenario`. L'adresse du site et celle de Mailpit sont réglées pour ddev, en haut de `tests/integration/class-lab-test.php`.
+Ils couvrent aussi l'updater, avec des réponses GitHub simulées (nouvelle version, 404, limite de l'API, délai dépassé, cache). Ils créent leurs formulaires, envoient de vraies requêtes HTTP au site (WS Form termine ses réponses REST par un `exit`), cherchent l'e-mail dans Mailpit, puis suppriment tout ce qu'ils ont créé. Pendant le passage, ils copient un petit fichier dans `mu-plugins` qui ne réagit qu'à leur en-tête `X-Lab-Scenario`. Par défaut, ils visent `http://127.0.0.1` avec le nom d'hôte du site, et Mailpit sur `127.0.0.1:8025` (ce qui marche tel quel dans ddev). Ailleurs, règle `WSFSN_LAB_SITE_URL`, `WSFSN_LAB_SITE_HOST` et `WSFSN_LAB_MAILPIT_URL`.
 
 Ne teste pas une mise à jour du plugin sur un site où le dossier du plugin est ton dépôt : la mise à jour le remplacerait par le contenu du zip.
 
