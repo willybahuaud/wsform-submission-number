@@ -1,0 +1,341 @@
+# Copyright (C) 2026 Willy Bahuaud
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Submission Numbers for WS Form 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/willybahuaud/wsform-submission-number/issues\n"
+"Last-Translator: Willy Bahuaud\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-08T16:17:56+01:00\n"
+"PO-Revision-Date: 2026-11-08 17:30+0100\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wsform-submission-number\n"
+
+#. Plugin Name of the plugin
+#: wsform-submission-number.php
+#: wsform-submission-number.php:59
+msgid "Submission Numbers for WS Form"
+msgstr "Submission Numbers for WS Form"
+
+#. Plugin URI of the plugin
+#: wsform-submission-number.php
+msgid "https://github.com/willybahuaud/wsform-submission-number"
+msgstr ""
+
+#. Description of the plugin
+#: wsform-submission-number.php
+msgid "Gives each WS Form submission a readable, continuous number, such as DEV-2026-0042, from sequences shared or not between forms."
+msgstr "Donne à chaque soumission WS Form un numéro lisible et continu, par exemple DEV-2026-0042, à partir de séquences partagées ou non entre formulaires."
+
+#. Author of the plugin
+#: wsform-submission-number.php
+msgid "Willy Bahuaud"
+msgstr ""
+
+#. Author URI of the plugin
+#: wsform-submission-number.php
+msgid "https://wabeo.fr/"
+msgstr ""
+
+#: includes/admin/class-notices.php:55
+msgid "Sequence saved."
+msgstr "Séquence enregistrée."
+
+#: includes/admin/class-notices.php:58
+msgid "Sequence deleted."
+msgstr "Séquence supprimée."
+
+#: includes/admin/class-notices.php:80
+msgid "Give the sequence a name."
+msgstr "Donnez un nom à la séquence."
+
+#: includes/admin/class-notices.php:81
+msgid "The format needs {N}, the number itself."
+msgstr "Le format doit contenir {N}, le numéro lui-même."
+
+#: includes/admin/class-notices.php:82
+msgid "A sequence that resets every year or month needs the year in its format, {YYYY} or {YY}, or the same number would come back."
+msgstr "Une séquence remise à zéro chaque année ou chaque mois doit avoir l'année dans son format, {YYYY} ou {YY}, sinon le même numéro reviendrait."
+
+#: includes/admin/class-notices.php:83
+msgid "A sequence that resets every month needs {MM} in its format, or the same number would come back."
+msgstr "Une séquence remise à zéro chaque mois doit avoir {MM} dans son format, sinon le même numéro reviendrait."
+
+#: includes/admin/class-notices.php:84
+msgid "This sequence already gave numbers: its reset rule can no longer change. Create a new sequence instead."
+msgstr "Cette séquence a déjà donné des numéros : sa remise à zéro ne peut plus changer. Créez plutôt une nouvelle séquence."
+
+#: includes/admin/class-notices.php:85
+msgid "The next number must be higher than the last number given in this period, or the same number would be given twice."
+msgstr "Le prochain numéro doit être plus grand que le dernier numéro donné dans cette période, sinon le même numéro serait donné deux fois."
+
+#: includes/admin/class-notices.php:86
+msgid "The next number skips some values: those numbers will never be given."
+msgstr "Le prochain numéro saute des valeurs : ces numéros ne seront jamais donnés."
+
+#: includes/admin/class-sequences-page.php:56
+#: includes/class-field-type.php:52
+#: includes/class-variable.php:41
+#: templates/sequences-list.php:24
+msgid "Submission Numbers"
+msgstr "Numéros de soumission"
+
+#: includes/admin/class-sequences-page.php:57
+msgid "Numbering"
+msgstr "Numérotation"
+
+#: includes/admin/class-sequences-page.php:82
+msgid "Delete this sequence? Numbers already given stay on their submissions, and the forms using it switch to their own sequence."
+msgstr "Supprimer cette séquence ? Les numéros déjà donnés restent sur leurs soumissions, et les formulaires qui l'utilisent passent sur leur propre séquence."
+
+#: includes/admin/class-sequences-page.php:164
+#: includes/admin/class-sequences-page.php:191
+msgid "You are not allowed to manage sequences."
+msgstr "Vous n'avez pas le droit de gérer les séquences."
+
+#: includes/class-field-type.php:72
+#: includes/class-variable.php:44
+msgid "Submission Number"
+msgstr "Numéro de soumission"
+
+#: includes/class-field-type.php:73
+msgid "Number"
+msgstr "Numéro"
+
+#: includes/class-field-type.php:74
+msgid "A readable, continuous number given by the server to each saved submission."
+msgstr "Un numéro lisible et continu, donné par le serveur à chaque soumission enregistrée."
+
+#: includes/class-field-type.php:76
+msgid "number sequence counter increment id reference numero"
+msgstr "numéro séquence compteur incrément id référence number"
+
+#: includes/class-field-type.php:95
+msgid "Basic"
+msgstr "Basique"
+
+#: includes/class-field-type.php:99
+msgid "Exclusions"
+msgstr "Exclusions"
+
+#: includes/class-field-type.php:105
+msgid "Advanced"
+msgstr "Avancé"
+
+#: includes/class-field-type.php:108
+msgid "Custom Attributes"
+msgstr "Attributs personnalisés"
+
+#: includes/class-field-type.php:126
+#: templates/sequences-list.php:58
+#: templates/sequences-list.php:97
+msgid "Sequence"
+msgstr "Séquence"
+
+#. translators: %s: link to the sequences screen.
+#: includes/class-field-type.php:132
+#, php-format
+msgid "Share a sequence to number several forms in a row. Formats and start numbers are set in %s."
+msgstr "Partagez une séquence pour numéroter plusieurs formulaires à la suite. Les formats et numéros de départ se règlent dans %s."
+
+#: includes/class-field-type.php:133
+msgid "WS Form > Numbering"
+msgstr "WS Form > Numérotation"
+
+#: includes/class-field-type.php:149
+msgid "Own sequence (this form only)"
+msgstr "Séquence propre (ce formulaire seulement)"
+
+#. translators: %s: form name.
+#: includes/class-sequences.php:147
+#, php-format
+msgid "%s (own sequence)"
+msgstr "%s (séquence propre)"
+
+#: includes/class-variable.php:46
+msgid "Returns the number of the first Submission Number field of the form, once the submission is saved."
+msgstr "Renvoie le numéro du premier champ Numéro de soumission du formulaire, une fois la soumission enregistrée."
+
+#: includes/updater/class-release-notes.php:28
+msgid "No release notes."
+msgstr "Aucune note de version."
+
+#: includes/updater/class-updater.php:210
+msgid "Could not rename the plugin folder during the update."
+msgstr "Impossible de renommer le dossier du plugin pendant la mise à jour."
+
+#: templates/sequence-edit.php:25
+#: templates/sequences-list.php:18
+msgid "Never"
+msgstr "Jamais"
+
+#: templates/sequence-edit.php:26
+#: templates/sequences-list.php:19
+msgid "Every year"
+msgstr "Chaque année"
+
+#: templates/sequence-edit.php:27
+#: templates/sequences-list.php:20
+msgid "Every month"
+msgstr "Chaque mois"
+
+#: templates/sequence-edit.php:31
+msgid "New shared sequence"
+msgstr "Nouvelle séquence partagée"
+
+#: templates/sequence-edit.php:32
+msgid "All sequences"
+msgstr "Toutes les séquences"
+
+#: templates/sequence-edit.php:45
+msgid "Name"
+msgstr "Nom"
+
+#: templates/sequence-edit.php:49
+#: templates/sequences-list.php:59
+msgid "Format"
+msgstr "Format"
+
+#. translators: 1: number token, 2: number token with padding, 3: date tokens, 4: example format.
+#: templates/sequence-edit.php:56
+#, php-format
+msgid "%1$s is the number, padded to the digits below, %2$s pads it to 6 digits. %3$s are the year, short year, month and day the number is given. Anything else stays as typed, for example %4$s."
+msgstr "%1$s est le numéro, complété selon le nombre de chiffres ci-dessous, %2$s le met sur 6 chiffres. %3$s sont l'année, l'année courte, le mois et le jour où le numéro est donné. Le reste est gardé tel quel, par exemple %4$s."
+
+#: templates/sequence-edit.php:67
+msgid "Digits"
+msgstr "Chiffres"
+
+#: templates/sequence-edit.php:70
+msgid "Zeros added in front of {N}: 4 gives 0042. A longer number is never cut."
+msgstr "Zéros ajoutés devant {N} : 4 donne 0042. Un nombre plus long n'est jamais coupé."
+
+#: templates/sequence-edit.php:74
+#: templates/sequences-list.php:60
+msgid "Reset"
+msgstr "Remise à zéro"
+
+#: templates/sequence-edit.php:83
+msgid "This sequence already gave numbers: its reset rule is locked."
+msgstr "Cette séquence a déjà donné des numéros : sa remise à zéro est verrouillée."
+
+#: templates/sequence-edit.php:88
+msgid "First number of each new period"
+msgstr "Premier numéro de chaque nouvelle période"
+
+#: templates/sequence-edit.php:92
+#: templates/sequences-list.php:62
+#: templates/sequences-list.php:99
+msgid "Next number"
+msgstr "Prochain numéro"
+
+#: templates/sequence-edit.php:98
+msgid "No number given yet in the current period. Taking over from another tool? Enter the number to continue from."
+msgstr "Aucun numéro donné pour l'instant dans la période en cours. Vous prenez la suite d'un autre outil ? Indiquez le numéro à partir duquel continuer."
+
+#. translators: %s: last number given.
+#: templates/sequence-edit.php:102
+#, php-format
+msgid "Last number given in the current period: %s. The next number can only go up."
+msgstr "Dernier numéro donné dans la période en cours : %s. Le prochain numéro ne peut que monter."
+
+#: templates/sequence-edit.php:108
+msgid "This skips some numbers: they will never be given."
+msgstr "Des numéros sont sautés : ils ne seront jamais donnés."
+
+#: templates/sequence-edit.php:109
+msgid "Too low: this number was already given."
+msgstr "Trop bas : ce numéro a déjà été donné."
+
+#: templates/sequence-edit.php:113
+msgid "Preview"
+msgstr "Aperçu"
+
+#: templates/sequence-edit.php:118
+msgid "Used by"
+msgstr "Utilisée par"
+
+#: templates/sequence-edit.php:119
+msgid "No form yet."
+msgstr "Aucun formulaire pour l'instant."
+
+#: templates/sequence-edit.php:124
+msgid "Save the sequence"
+msgstr "Enregistrer la séquence"
+
+#: templates/sequence-edit.php:144
+msgid "Delete this sequence"
+msgstr "Supprimer cette séquence"
+
+#: templates/sequences-list.php:25
+msgid "Add a shared sequence"
+msgstr "Ajouter une séquence partagée"
+
+#: templates/sequences-list.php:32
+msgid "These forms have a Submission Number field but no \"Save Submission\" action. WS Form saves nothing for them, so they get no number:"
+msgstr "Ces formulaires ont un champ Numéro de soumission mais pas d'action « Save Submission ». WS Form n'enregistre rien pour eux, donc ils ne reçoivent aucun numéro :"
+
+#: templates/sequences-list.php:43
+msgid "These forms point to a shared sequence that does not exist on this site, probably after an import. They use their own sequence until you choose another one in the field settings:"
+msgstr "Ces formulaires pointent vers une séquence partagée qui n'existe pas sur ce site, sans doute après un import. Ils utilisent leur propre séquence jusqu'à ce que vous en choisissiez une autre dans les réglages du champ :"
+
+#: templates/sequences-list.php:53
+msgid "No sequence yet. Add a Submission Number field to a form and publish it: the form gets its own sequence. Or add a shared sequence to number several forms in a row."
+msgstr "Aucune séquence pour l'instant. Ajoutez un champ Numéro de soumission à un formulaire et publiez-le : le formulaire reçoit sa propre séquence. Ou ajoutez une séquence partagée pour numéroter plusieurs formulaires à la suite."
+
+#: templates/sequences-list.php:61
+msgid "Last number"
+msgstr "Dernier numéro"
+
+#: templates/sequences-list.php:63
+msgid "Forms"
+msgstr "Formulaires"
+
+#: templates/sequences-list.php:75
+msgid "Shared"
+msgstr "Partagée"
+
+#: templates/sequences-list.php:75
+msgid "Own to one form"
+msgstr "Propre à un formulaire"
+
+#: templates/sequences-list.php:88
+msgid "Next number changes"
+msgstr "Changements du prochain numéro"
+
+#: templates/sequences-list.php:90
+msgid "No change yet."
+msgstr "Aucun changement pour l'instant."
+
+#: templates/sequences-list.php:95
+msgid "Date"
+msgstr "Date"
+
+#: templates/sequences-list.php:96
+msgid "User"
+msgstr "Utilisateur"
+
+#: templates/sequences-list.php:98
+msgid "Period"
+msgstr "Période"
+
+#. translators: %d: next number.
+#: templates/sequences-list.php:116
+#, php-format
+msgid "Created, starts at %d"
+msgstr "Créée, démarre à %d"
+
+#. translators: 1: next number before, 2: next number after.
+#: templates/sequences-list.php:118
+#, php-format
+msgid "%1$d → %2$d"
+msgstr "%1$d → %2$d"
+
+#: wsform-submission-number.php:90
+msgid "Submission Numbers for WS Form needs WS Form, LITE or PRO, to work."
+msgstr "Submission Numbers for WS Form a besoin de WS Form, LITE ou PRO, pour fonctionner."

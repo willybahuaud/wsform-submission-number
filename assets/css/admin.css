@@ -1,0 +1,23 @@
+/* Sequences screen. */
+
+.wsform-submission-number .wsfsn-preview {
+	font-size: 1.15em;
+	padding: 4px 8px;
+}
+
+.wsform-submission-number .wsfsn-gap-warning,
+.wsform-submission-number .wsfsn-too-low {
+	font-weight: 600;
+}
+
+.wsform-submission-number .wsfsn-gap-warning {
+	color: #996800;
+}
+
+.wsform-submission-number .wsfsn-too-low {
+	color: #b32d2e;
+}
+
+.wsform-submission-number .wsfsn-delete {
+	color: #b32d2e;
+}
