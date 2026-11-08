@@ -154,7 +154,9 @@ Le garde-fou du prochain numéro marche pareil : `UPDATE … WHERE value < nouve
 
 Une deuxième table garde le numéro de chaque soumission. C'est elle qui fait foi : la valeur de la soumission n'en est qu'une copie.
 
-Testé dans le lab : 50 envois REST simultanés sur le même formulaire donnent les numéros 1 à 50, chacun une fois.
+Sur SQLite (WordPress Playground, quelques hébergeurs), `LAST_INSERT_ID(expr)` n'existe pas. Le compteur passe alors par une transaction : la première écriture de SQLite verrouille toute la base jusqu'au `COMMIT`, donc personne ne peut s'intercaler non plus.
+
+Testé : 50 envois REST simultanés sur le même formulaire donnent les numéros 1 à 50, chacun une fois, avec WS Form PRO sur MySQL comme avec WS Form LITE sur SQLite.
 
 ## Les limites
 
@@ -187,7 +189,7 @@ Les tests d'intégration ont besoin d'un WordPress avec WS Form. Ils tournent su
 wp eval-file wp-content/plugins/wsform-submission-number/tests/integration/run.php --user=admin
 ```
 
-Ils créent leurs formulaires, envoient de vraies requêtes HTTP au site (WS Form termine ses réponses REST par un `exit`), cherchent l'e-mail dans Mailpit, puis suppriment tout ce qu'ils ont créé. Pendant le passage, ils copient un petit fichier dans `mu-plugins` qui ne réagit qu'à leur en-tête `X-Lab-Scenario`. L'adresse du site et celle de Mailpit sont réglées pour ddev, en haut de `tests/integration/class-lab-test.php`.
+Ils couvrent aussi l'updater, avec des réponses GitHub simulées (nouvelle version, 404, limite de l'API, délai dépassé, cache). Ils créent leurs formulaires, envoient de vraies requêtes HTTP au site (WS Form termine ses réponses REST par un `exit`), cherchent l'e-mail dans Mailpit, puis suppriment tout ce qu'ils ont créé. Pendant le passage, ils copient un petit fichier dans `mu-plugins` qui ne réagit qu'à leur en-tête `X-Lab-Scenario`. L'adresse du site et celle de Mailpit sont réglées pour ddev, en haut de `tests/integration/class-lab-test.php`.
 
 Ne teste pas une mise à jour du plugin sur un site où le dossier du plugin est ton dépôt : la mise à jour le remplacerait par le contenu du zip.
 

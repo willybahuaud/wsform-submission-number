@@ -37,6 +37,10 @@ class Counter {
 	public static function next( $sequence_id, $period, $period_start ) {
 		global $wpdb;
 
+		if ( defined( 'DB_ENGINE' ) && 'sqlite' === DB_ENGINE ) {
+			return self::next_on_sqlite( $sequence_id, $period, $period_start );
+		}
+
 		$table = Schema::counters_table();
 
 		$written = $wpdb->query(
@@ -54,6 +58,39 @@ class Counter {
 		}
 
 		return (int) $wpdb->get_var( 'SELECT LAST_INSERT_ID()' );
+	}
+
+	/**
+	 * Take the next number on a SQLite database (WordPress Playground, some hosts).
+	 *
+	 * SQLite has no LAST_INSERT_ID(expr). Its first write locks the whole
+	 * database until COMMIT, so no other request can slip in between the
+	 * increment and the read.
+	 *
+	 * @param string $sequence_id  Sequence ID.
+	 * @param string $period       Period key.
+	 * @param int    $period_start First number of a period that has no row yet.
+	 *
+	 * @return int The number, or 0 when the database refused the write.
+	 */
+	private static function next_on_sqlite( $sequence_id, $period, $period_start ) {
+		global $wpdb;
+
+		$table = Schema::counters_table();
+
+		$wpdb->query( 'START TRANSACTION' );
+		$wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO {$table} (sequence_id, period, value) VALUES (%s, %s, %d)", $sequence_id, $period, max( 1, (int) $period_start ) - 1 ) );
+		$written = $wpdb->query( $wpdb->prepare( "UPDATE {$table} SET value = value + 1 WHERE sequence_id = %s AND period = %s", $sequence_id, $period ) );
+		$number  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT value FROM {$table} WHERE sequence_id = %s AND period = %s", $sequence_id, $period ) );
+
+		if ( 1 !== $written ) {
+			$wpdb->query( 'ROLLBACK' );
+			return 0;
+		}
+
+		$wpdb->query( 'COMMIT' );
+
+		return $number;
 	}
 
 	/**
