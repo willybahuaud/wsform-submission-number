@@ -14,3 +14,8 @@ LOCAL.md
 
 # Archives de release
 /dist/
+
+# Outils locaux
+/.playwright-mcp/
+.phpunit.result.cache
+composer.lock

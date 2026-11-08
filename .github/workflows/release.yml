@@ -1,0 +1,58 @@
+# Publishes a release with the plugin archive when a vX.Y.Z tag is pushed.
+#
+# The updater only offers releases that carry wsform-submission-number-X.Y.Z.zip, and
+# reads the requirements from wsform-submission-number-X.Y.Z.json.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      # Pinned to the v7.0.1 commit: a tag can move, and this job can publish.
+      # The write token does not stay in .git/config while Composer runs.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - name: Check that the tag matches the plugin version
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          header_version="$(sed -n 's/^ \* Version: *//p' wsform-submission-number.php | tr -d '[:space:]')"
+          constant_version="$(sed -n "s/.*const VERSION = '\(.*\)';/\1/p" includes/class-plugin.php)"
+          stable_tag="$(sed -n 's/^Stable tag: *//p' readme.txt | tr -d '[:space:]')"
+          echo "tag=$tag_version header=$header_version constant=$constant_version stable=$stable_tag"
+          if [[ "$tag_version" != "$header_version" || "$tag_version" != "$constant_version" || "$tag_version" != "$stable_tag" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match the plugin version."
+            exit 1
+          fi
+
+      - name: Install development tools
+        run: composer install --no-interaction --no-progress
+
+      - name: Coding standards
+        run: vendor/bin/phpcs -q
+
+      - name: Unit tests
+        run: vendor/bin/phpunit
+
+      - name: Build the archive
+        run: bin/build-zip.sh
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/wsform-submission-number-${GITHUB_REF_NAME#v}.zip" \
+            "dist/wsform-submission-number-${GITHUB_REF_NAME#v}.json" \
+            --verify-tag \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes
